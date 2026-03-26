@@ -24,9 +24,15 @@ Xmn2 n1   B 0  0 sky130_fd_pr__nfet_01v8 l={LMIN} w={n*2*WMIN}
 
 Cload vout 0 {CLOAD}
 
+.control
+run
 
 * Output low-to-high delay (tpLH)
 .meas tran tpLH trig v(A) val={0.5*VDD} rise=1 targ v(vout) val={0.5*VDD} rise=1
 
 * Output high-to-low delay (tpHL)
 .meas tran tpHL trig v(A) val={0.5*VDD} fall=1 targ v(vout) val={0.5*VDD} fall=1
+print tpLH tpHL
+plot v(A) v(vout)   
+.endc
+.end
