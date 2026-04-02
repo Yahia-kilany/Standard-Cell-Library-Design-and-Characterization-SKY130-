@@ -33,7 +33,7 @@ Xmn1 vout A n1 n1 sky130_fd_pr__nfet_01v8 l={LMIN} w={n*2*WMIN}
 Xmn2 n1   B 0  0 sky130_fd_pr__nfet_01v8 l={LMIN} w={n*2*WMIN}
 
 * AC branch
-Xmn3 vout A n2 n1 sky130_fd_pr__nfet_01v8 l={LMIN} w={n*2*WMIN}
+Xmn3 vout A n2 n2 sky130_fd_pr__nfet_01v8 l={LMIN} w={n*2*WMIN}
 Xmn4 n2   C 0  0 sky130_fd_pr__nfet_01v8 l={LMIN} w={n*2*WMIN}
 
 * BC branch
@@ -45,10 +45,10 @@ Cload vout 0 {CLOAD}
 run
 
 * Output low-to-high delay (tpLH)
-.meas tran tpLH trig v(A) val={0.5*VDD} rise=1 targ v(vout) val={0.5*VDD} rise=1
+meas tran tpLH trig v(A) val={0.9} rise=1 targ v(vout) val={0.9} rise=1
 
 * Output high-to-low delay (tpHL)
-.meas tran tpHL trig v(A) val={0.5*VDD} fall=1 targ v(vout) val={0.5*VDD} fall=1
+meas tran tpHL trig v(A) val={0.9} fall=1 targ v(vout) val={0.9} fall=1
 print tpLH tpHL
 plot v(A) v(vout)  
 .endc

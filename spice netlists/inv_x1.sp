@@ -1,35 +1,39 @@
 .title INVx1 delay demo
+
 .lib /home/y_kilany/work/pdks/volare/sky130/versions/dd7771c384ed36b91a25e9f8b314355fc26561be/sky130A/libs.tech/ngspice/sky130.lib.spice tt
 .temp 25
 
+* ---- Parameters ----
 .param VDD=1.8
 .param WMIN=0.42
 .param LMIN=0.15
-.param CLOAD=25f
+.param CLOAD=0.0005p
 .param kp=2.372781
-.param n = 1
+.param n=1
+
+* ---- Sources ----
 Vdd vdd 0 {VDD}
-Vin in 0 PULSE(
-    0           ; V1 = low
-    {VDD}         ; V2 = high
-    0.100p       ; TD = start time
-    0.010/0.6p   ; TR = rise time for 0.2→0.8 VDD
-    0.010/0.6p   ; TF = fall time for 0.2→0.8 VDD
-    50p         ; PW = pulse width (long enough for gate to respond)
-    200p        ; PER = total period
-)
-Xmp vout vin vdd vdd sky130_fd_pr__pfet_01v8 l=0.15 w={n*kp*WMIN}
-Xmn vout vin 0 0 sky130_fd_pr__nfet_01v8 l=0.15 w={n*WMIN}
+Vin vin 0 PULSE(0 {VDD} 1n 1n 1n 20n 40n)
+
+Xmp vout vin vdd vdd sky130_fd_pr__pfet_01v8 l={LMIN} w={n*kp*WMIN}
+Xmn vout vin 0   0   sky130_fd_pr__nfet_01v8 l={LMIN} w={n*WMIN}
+
 Cload vout 0 {CLOAD}
-.tran 1p 1n
+
+.ic v(vin)=0 v(vout)={VDD}
+
+.tran 10p 80n
+
 .control
 run
-    * Output low-to-high delay (tpLH)
-    .meas tran tpLH trig v(in) val={0.5*VDD} rise=1 targ v(vout) val={0.5*VDD} rise=1
 
-    * Output high-to-low delay (tpHL)
-    .meas tran tpHL trig v(in) val={0.5*VDD} fall=1 targ v(vout) val={0.5*VDD} fall=1
-    print tpLH tpHL
-    plot v(in) v(vout)
+meas tran tpHL trig v(vin) val={0.9} rise=1 targ v(vout) val={0.9} fall=1 
+
+meas tran tpLH trig v(vin) val={0.9} fall=1 targ v(vout) val={0.9} rise=1
+
+let tp = (tpHL + tpLH) / 2
+print tpHL tpLH tp
+plot v(vin) v(vout)
+
 .endc
-.end    
+.end

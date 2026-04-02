@@ -28,10 +28,10 @@ Cload vout 0 {CLOAD}
 run
 
 * Output low-to-high delay (tpLH)
-.meas tran tpLH trig v(A) val={0.5*VDD} rise=1 targ v(vout) val={0.5*VDD} rise=1
+meas tran tpLH trig v(A) val={0.9} rise=1 targ v(vout) val={0.9} rise=1
 
 * Output high-to-low delay (tpHL)
-.meas tran tpHL trig v(A) val={0.5*VDD} fall=1 targ v(vout) val={0.5*VDD} fall=1
+meas tran tpHL trig v(A) val={0.9} fall=1 targ v(vout) val={0.9} fall=1
 print tpLH tpHL
 plot v(A) v(vout)   
 .endc
