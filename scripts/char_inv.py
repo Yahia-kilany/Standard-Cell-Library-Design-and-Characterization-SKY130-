@@ -61,9 +61,9 @@ if __name__ == "__main__":
     characterise(
         cell_name       = "INV",
         build_fn        = build_inv,
-        drive_strengths = [4],
-        load_caps_f     = [0.0005e-12],
-        slew_20_80_s    = [1.5000e-9],
+        drive_strengths = DRIVE_STRENGTHS,
+        load_caps_f     = LOAD_CAPS_F,
+        slew_20_80_s    = SLEW_20_80_S,
         pins            = PINS,
         excel_filename  = "inv_delay_tables.xlsx",
     )

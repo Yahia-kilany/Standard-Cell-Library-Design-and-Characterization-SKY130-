@@ -1,5 +1,5 @@
 .title subckts
-.lib $PDK_ROOT/sky130A/libs.tech/ngspice/sky130.lib.spice tt
+.lib /home/y_kilany/work/pdks/volare/sky130/versions/dd7771c384ed36b91a25e9f8b314355fc26561be/sky130A/libs.tech/ngspice/sky130.lib.spice tt
 .subckt inv_x1 A VGND VNB VPB VPWR Y
 Xmp Y A VPWR VPB sky130_fd_pr__pfet_01v8 l=0.15 w=0.9965680199999999
 Xmn Y A VGND VNB sky130_fd_pr__nfet_01v8 l=0.15 w=0.42
@@ -42,22 +42,22 @@ Xmn2 n1 B VGND VNB sky130_fd_pr__nfet_01v8 l=0.15 w=3.36
 .ends nand2_x4
 
 .subckt nor2_x1 A B VGND VNB VPB VPWR Y
-Xmp1 n1 A VPWR VPB sky130_fd_pr__pfet_01v8 l=0.15 w=1.9931360399999998
-Xmp2 Y B n1 VPB sky130_fd_pr__pfet_01v8 l=0.15 w=1.9931360399999998
+Xmp1 n1 B VPWR VPB sky130_fd_pr__pfet_01v8 l=0.15 w=1.9931360399999998
+Xmp2 Y A n1 VPB sky130_fd_pr__pfet_01v8 l=0.15 w=1.9931360399999998
 Xmn1 Y A VGND VNB sky130_fd_pr__nfet_01v8 l=0.15 w=0.42
 Xmn2 Y B VGND VNB sky130_fd_pr__nfet_01v8 l=0.15 w=0.42
 .ends nor2_x1
 
 .subckt nor2_x2 A B VGND VNB VPB VPWR Y
-Xmp1 n1 A VPWR VPB sky130_fd_pr__pfet_01v8 l=0.15 w=3.9862720799999996
-Xmp2 Y B n1 VPB sky130_fd_pr__pfet_01v8 l=0.15 w=3.9862720799999996
+Xmp1 n1 B VPWR VPB sky130_fd_pr__pfet_01v8 l=0.15 w=3.9862720799999996
+Xmp2 Y A n1 VPB sky130_fd_pr__pfet_01v8 l=0.15 w=3.9862720799999996
 Xmn1 Y A VGND VNB sky130_fd_pr__nfet_01v8 l=0.15 w=0.84
 Xmn2 Y B VGND VNB sky130_fd_pr__nfet_01v8 l=0.15 w=0.84
 .ends nor2_x2
 
 .subckt nor2_x4 A B VGND VNB VPB VPWR Y
-Xmp1 n1 A VPWR VPB sky130_fd_pr__pfet_01v8 l=0.15 w=7.972544159999999
-Xmp2 Y B n1 VPB sky130_fd_pr__pfet_01v8 l=0.15 w=7.972544159999999
+Xmp1 n1 B VPWR VPB sky130_fd_pr__pfet_01v8 l=0.15 w=7.972544159999999
+Xmp2 Y A n1 VPB sky130_fd_pr__pfet_01v8 l=0.15 w=7.972544159999999
 Xmn1 Y A VGND VNB sky130_fd_pr__nfet_01v8 l=0.15 w=1.68
 Xmn2 Y B VGND VNB sky130_fd_pr__nfet_01v8 l=0.15 w=1.68
 .ends nor2_x4

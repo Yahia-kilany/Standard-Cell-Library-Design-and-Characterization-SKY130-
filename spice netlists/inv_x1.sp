@@ -1,26 +1,28 @@
 .title INVx1 demo
 
-.include circuit.sp
-.temp 25
+.lib /home/y_kilany/work/pdks/volare/sky130/versions/dd7771c384ed36b91a25e9f8b314355fc26561be/sky130A/libs.tech/ngspice/sky130.lib.spice tt
 
-* ---- Parameters ----
 .param VDD=1.8
-.param WMIN=0.42
-.param LMIN=0.15
-.param CLOAD=0.0005p
-.param kp=2.372781
-.param n=1
+.param WN=0.42
+.param LCH=0.15
+.param RDRV=10k
 
-* ---- Sources ----
-Vdd vdd 0 {VDD}
-Vin vin 0 PULSE(0 {VDD} 10n 1n 1n 20n 40n)
+VDD vdd 0 {VDD}
 
-Xinv vin 0 0 vdd vdd vout inv_x4
-.tran 0.5n 80n
+* Step source through resistor
+VSTEP src 0 PWL(0 0 100p 0 101p {VDD} 2n {VDD})
+RIN src in {RDRV}
+
+XM_N 0 in 0 0 sky130_fd_pr__nfet_01v8 w={WN} l={LCH}
+
+.tran 1p 0.5n
 
 .control
 run
-plot v(vin) v(vout)
-
+meas tran t_src when v(src)=0.9 rise=1
+meas tran t_in  when v(in)=0.9 rise=1
+let trc = t_in - t_src
+let cn = trc/(0.69*10000)
+print trc cn
 .endc
 .end

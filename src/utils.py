@@ -27,8 +27,8 @@ LMIN: float = 0.15
 KP:   float = 2.372781
 W_N:  float = 0.42
 W_P:  float = KP * W_N
- 
- 
+step_time_ps: float = 10
+simulation_end_time_ns: float = 80
 # ── Waveform helpers ─────────────────────────────────────────────────────────
  
 def first_crossing(
@@ -109,7 +109,7 @@ def measure_delays(
 def simulate(c: Circuit):
     """Run a standard transient simulation (10 ps step, 40 ns window)."""
     sim = c.simulator(temperature=25, nominal_temperature=25)
-    return sim.transient(step_time=10 @ u_ps, end_time=80 @ u_ns)
+    return sim.transient(step_time= step_time_ps @ u_ps, end_time=simulation_end_time_ns @ u_ns)
  
  
 # ── Sweep ────────────────────────────────────────────────────────────────────
@@ -172,11 +172,11 @@ def run_sweep(
                     cell_fall, cell_rise, rise_trans, fall_trans = measure_delays(
                         t, vin, vout
                     )
- 
-                    cell_fall_mat[ti, ci]  = cell_fall
-                    cell_rise_mat[ti, ci]  = cell_rise
-                    rise_trans_mat[ti, ci] = rise_trans
-                    fall_trans_mat[ti, ci] = fall_trans
+                    #clamp high values to 0 
+                    cell_fall_mat[ti, ci]  = 0 if cell_fall > 30 else cell_fall  
+                    cell_rise_mat[ti, ci]  = 0 if cell_rise > 30 else cell_rise
+                    rise_trans_mat[ti, ci] = 0 if rise_trans > 30 else rise_trans
+                    fall_trans_mat[ti, ci] = 0 if fall_trans > 30 else fall_trans
  
                     print(
                         f"cell {cell_name} n={n}  pin={pin}  "

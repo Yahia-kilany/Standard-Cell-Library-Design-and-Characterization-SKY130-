@@ -70,12 +70,12 @@ class NOR2_N(SubCircuitFactory):
         self.__name__ = f"nor2_x{N}"
         self.X(
             "mp1", "sky130_fd_pr__pfet_01v8",
-            "n1", "A", "VPWR", "VPB",
+            "n1", "B", "VPWR", "VPB",
             w=2*N*W_P, l=LMIN,
         )
         self.X(
             "mp2", "sky130_fd_pr__pfet_01v8",
-            "Y", "B", "n1", "VPB",
+            "Y", "A", "n1", "VPB",
             w=2*N*W_P, l=LMIN,
         )
         self.X(
