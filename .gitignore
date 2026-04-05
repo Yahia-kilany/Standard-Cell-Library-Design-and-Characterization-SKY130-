@@ -1,5 +1,4 @@
 .~lock.*.xlsx#
 __pycache__/
-*.xlsx
 bsim4v5.out
 config.yaml
