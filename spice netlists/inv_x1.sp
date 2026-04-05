@@ -1,6 +1,6 @@
-.title INVx1 delay demo
+.title INVx1 demo
 
-.lib /home/y_kilany/work/pdks/volare/sky130/versions/dd7771c384ed36b91a25e9f8b314355fc26561be/sky130A/libs.tech/ngspice/sky130.lib.spice tt
+.include circuit.sp
 .temp 25
 
 * ---- Parameters ----
@@ -13,26 +13,13 @@
 
 * ---- Sources ----
 Vdd vdd 0 {VDD}
-Vin vin 0 PULSE(0 {VDD} 1n 1n 1n 20n 40n)
+Vin vin 0 PULSE(0 {VDD} 10n 1n 1n 20n 40n)
 
-Xmp vout vin vdd vdd sky130_fd_pr__pfet_01v8 l={LMIN} w={n*kp*WMIN}
-Xmn vout vin 0   0   sky130_fd_pr__nfet_01v8 l={LMIN} w={n*WMIN}
-
-Cload vout 0 {CLOAD}
-
-.ic v(vin)=0 v(vout)={VDD}
-
-.tran 10p 80n
+Xinv vin 0 0 vdd vdd vout inv_x4
+.tran 0.5n 80n
 
 .control
 run
-
-meas tran tpHL trig v(vin) val={0.9} rise=1 targ v(vout) val={0.9} fall=1 
-
-meas tran tpLH trig v(vin) val={0.9} fall=1 targ v(vout) val={0.9} rise=1
-
-let tp = (tpHL + tpLH) / 2
-print tpHL tpLH tp
 plot v(vin) v(vout)
 
 .endc
