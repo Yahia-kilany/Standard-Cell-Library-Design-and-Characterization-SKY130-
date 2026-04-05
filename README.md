@@ -25,7 +25,7 @@ The project includes:
 .
 ├── results/              # Generated Excel NLDM table outputs
 ├── scripts/              # Characterization scripts (char_inv.py, char_nand2.py, etc.)
-├── spice netlists/       # Standalone SPICE netlist files for verification
+├── spice netlists/       # contains circuits.sp, and several spice netlists to verify the functions
 ├── src/                  # Shared source modules (circuit_gen.py, utils.py)
 ├── environment.yml       # Conda environment specification
 └── README.md
